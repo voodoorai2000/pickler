@@ -24,18 +24,18 @@ class Pickler
   attr_reader :directory
 
   def initialize(path = '.')
-    @lang = 'en'
+    @lang = 'es'
     @directory = File.expand_path(path)
-    until File.directory?(File.join(@directory,'features'))
+    until File.directory?(File.join(@directory,'caracteristicas'))
       if @directory == File.dirname(@directory)
-        raise Error, 'Project not found.  Make sure you have a features/ directory.', caller
+        raise Error, 'Project not found.  Make sure you have a caracteristicas/ directory.', caller
       end
       @directory = File.dirname(@directory)
     end
   end
 
   def features_path(*subdirs)
-    File.join(@directory,'features',*subdirs)
+    File.join(@directory,'caracteristicas',*subdirs)
   end
 
   def config_file
@@ -114,7 +114,7 @@ class Pickler
   end
 
   def local_features
-    Dir[features_path('**','*.feature')].map {|f|feature(f)}.select {|f|f.pushable?}
+     Dir[features_path('**','*.feature')].map {|f|feature(f)}.select {|f|f.pushable?}
   end
 
   def scenario_features(excluded_states = %w(unscheduled unstarted))
